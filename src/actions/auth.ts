@@ -66,17 +66,18 @@ export async function signIn(formData:FormData) {
 
     // TODO: create user instance
 
-    revalidatePath("/", "layout");
+    revalidatePath("/dashboard", "layout");
+    redirect("/dashboard")
     return {
         status: "success",
         user: data.user,
     };
     
+
 }
 
 export async function signOut() {
     const supabase = await createClient();
-
     const { error } = await supabase.auth.signOut();
 
     if (error) {
