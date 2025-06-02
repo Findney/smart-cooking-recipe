@@ -15,7 +15,7 @@ export async function fetchRecipesByCategory() {
       id: recipe.recipe_id,
       imageUrl: recipe.image_url,
       title: recipe.title,
-      price: `${recipe.cooking_time} min`,
+      CookingTime: `${recipe.cooking_time}`,
     });
     return acc;
   }, {});

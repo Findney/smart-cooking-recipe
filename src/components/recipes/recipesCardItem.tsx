@@ -21,7 +21,7 @@ const RecipeCardItem: React.FC<CardItemProps> = ({ imageUrl, title, cookingTime,
             {title}
           </div>
           <div className="text-foreground text-base font-semibold leading-snug">
-            {cookingTime}
+            {cookingTime} minutes
           </div>
         </div>
       </div>

@@ -1,36 +1,81 @@
-import React from "react";
-import Calendar from "@/components/ingredients/Calendar";
-import IngredientSection from "@/components/ingredients/IngredientsSection";
-import CategorySection from "@/components/recipes/RecipesSection";
+"use client";
 
-const InventoryPage = async () => {
-  // mock or fetched data example
-  const ingredients = [
-    { id: 1, name: "Onion", stock: 3, unit: "pcs", imageUrl: "https://placehold.co/56x56" },
-    { id: 2, name: "Garlic", stock: 5, unit: "cloves", imageUrl: "https://placehold.co/56x56" },
-    { id: 3, name: "Tomato", stock: 2, unit: "pcs", imageUrl: "https://placehold.co/56x56" },
-  ];
+import React, { useEffect, useState } from "react";
+import AddIngredientPopup from "@/components/inventory/AddIngredients";
+import IngredientSection from "@/components/inventory/IngredientsSection";
+import CalendarSection from "@/components/inventory/Calendar"
+import RecipeSection from "@/components/recipes/RecipesSection";
+import { supabase } from "@/lib/supabaseClient";
 
-  const recommended = [
-    { id: 15, title: 'Chicken Soto', cooking_time: 75, imageUrl: 'https://cdn0-production-images-kly.akamaized.net/...', cookingTime: '75 min' },
-    { id: 16, title: 'Fried Rice', cooking_time: 30, imageUrl: 'https://placehold.co/60x60', cookingTime: '30 min' },
-  ];
+export default function InventoryPage() {
+    const [isPopupOpen, setPopupOpen] = useState(false);
+    const [ingredients, setIngredients] = useState<any[]>([]);
+    const [refreshKey, setRefreshKey] = useState(0);
 
-  return (
-    <div className="p-4 space-y-8">
-      <div className="text-xl font-bold">Welcome back, here's your inventory info:</div>
-      <Calendar />
-      <div>
-        <div className="text-lg font-semibold">Ingredients expiring soon</div>
-        <IngredientSection ingredients={ingredients} />
-      </div>
-      <div>
-        <div className="text-lg font-semibold">Recommended Recipes</div>
-        <CategorySection categoryName="Suggested" items={recommended} />
-      </div>
-      <button className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-green-500 text-white text-2xl shadow">+</button>
-    </div>
-  );
-};
+    const recommended = [
+        {
+            id: 15,
+            title: "Chicken Soto",
+            cookingTime: "75",
+            imageUrl: "https://cdn0-production-images-kly.akamaized.net/...",
+        },
+        {
+            id: 16,
+            title: "Fried Rice",
+            cookingTime: "30",
+            imageUrl: "https://placehold.co/60x60",
+        },
+    ];
 
-export default InventoryPage;
+    useEffect(() => {
+        const today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+        const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+
+        supabase
+            .from("inventory")
+            .select(`
+            inventory_id,
+            quantity,
+            expiration_date,
+            ingredients (
+              ingredient_id,
+              name,
+              unit
+            )
+          `)
+            .gte("expiration_date", today)
+            .lte("expiration_date", nextWeek)
+            .then(({ data }) => {
+                if (data) setIngredients(data);
+            });
+    }, [refreshKey]);
+
+
+    return (
+        <div className="relative p-6">
+            <CalendarSection />
+
+            <h1 className="text-2xl font-bold mb-4">Inventory</h1>
+
+            <IngredientSection key={refreshKey} ingredients={ingredients} />
+
+            <h2 className="text-xl font-semibold mt-8 mb-4">Recommended Recipes</h2>
+            <RecipeSection categoryName="Recomended" items={recommended} />
+
+            <button
+                className="fixed bottom-6 right-6 px-5 py-3 rounded-full shadow-md"
+                onClick={() => setPopupOpen(true)}
+            >
+                +
+            </button>
+
+            <AddIngredientPopup
+                isOpen={isPopupOpen}
+                onClose={() => setPopupOpen(false)}
+                onSave={() => setRefreshKey(prev => prev + 1)}
+            />
+        </div>
+    );
+}
