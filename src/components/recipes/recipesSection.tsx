@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import CardItem from "./recipesCardItem";
+import CardItem from "./RecipesCardItem";
 
 interface Item {
   id: number;

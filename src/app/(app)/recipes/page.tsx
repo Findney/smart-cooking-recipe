@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import CategorySection from "@/components/recipes/recipesSection";
+import CategorySection from "@/components/recipes/RecipesSection";
 import { fetchRecipesByCategory } from "@/lib/fetchRecipes";
 
 const RecipesDisplay = () => {
