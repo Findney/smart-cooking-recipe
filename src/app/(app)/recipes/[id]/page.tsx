@@ -73,38 +73,17 @@ export default function SingleRecipePage({ params }: { params: { id: string } })
             {recipe.description}
           </p>
 
-          {/* Informasi Kunci: Waktu Memasak, Porsi */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 p-4 bg-green-50 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <ClockIcon className="w-8 h-8 text-green-600" />
-              <div>
-                <p className="text-sm text-gray-500">Total Time</p>
-                <p className="text-md font-semibold text-gray-700">{totalCookTime} min</p>
-              </div>
+          {/* Informasi Kunci: Waktu Memasak */}
+        <div className="mb-8 p-4 bg-green-50 rounded-lg max-w-[150px]">
+        <div className="flex items-center space-x-2 w-full">
+            <ClockIcon className="w-8 h-8 text-green-600" />
+            <div>
+            <p className="text-sm text-gray-500">Total Time</p>
+            <p className="text-md font-semibold text-gray-700">{totalCookTime} min</p>
             </div>
-            <div className="flex items-center space-x-2">
-              <SparklesIcon className="w-8 h-8 text-green-600" />
-              <div>
-                <p className="text-sm text-gray-500">Prep Time</p>
-                <p className="text-md font-semibold text-gray-700">{recipe.prepTimeMinutes} min</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <UserGroupIcon className="w-8 h-8 text-green-600" />
-              <div>
-                <p className="text-sm text-gray-500">Servings</p>
-                <p className="text-md font-semibold text-gray-700">{recipe.servings} orang</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Deskripsi Panjang (jika ada) */}
-          {recipe.longDescription && (
-            <div className="prose max-w-none mb-8">
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">Tentang Resep Ini:</h3>
-              <p>{recipe.longDescription}</p>
-            </div>
-          )}
+        </div>
+        </div>
+
 
           {/* Estimasi Nutrisi - Sesuai dengan proposal [cite: 34] */}
           <div className="mb-8 p-4 bg-blue-50 rounded-lg">
