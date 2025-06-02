@@ -1,28 +1,26 @@
 import React from "react";
 import CategorySection from "@/components/recipes/recipesSection";
 
-// TODO: connect to supabase
+const generateItems = (count: number, prefix: string, startId: number) =>
+  Array.from({ length: count }, (_, i) => ({
+    id: startId + i,
+    imageUrl: "https://placehold.co/208x247",
+    title: `${prefix} Item ${i + 1}`,
+    price: `$${(i + 1) * 1.5}`,
+  }));
+
 const categories = [
   {
-    categoryName: "Fruits",
-    items: [
-      { id: 1, imageUrl: "https://placehold.co/208x247", title: "Apple", price: "$2" },
-      { id: 2, imageUrl: "https://placehold.co/208x247", title: "Banana", price: "$1" },
-    ],
+    categoryName: "Category 1",
+    items: generateItems(20, "Cat1", 1),
   },
   {
-    categoryName: "Vegetables",
-    items: [
-      { id: 3, imageUrl: "https://placehold.co/208x247", title: "Carrot", price: "$1.5" },
-      { id: 4, imageUrl: "https://placehold.co/208x247", title: "Broccoli", price: "$2.5" },
-    ],
+    categoryName: "Category 2",
+    items: generateItems(5, "Cat2", 101),
   },
   {
-    categoryName: "Snacks",
-    items: [
-      { id: 5, imageUrl: "https://placehold.co/208x247", title: "Chips", price: "$3" },
-      { id: 6, imageUrl: "https://placehold.co/208x247", title: "Cookies", price: "$4" },
-    ],
+    categoryName: "Category 3",
+    items: generateItems(10, "Cat3", 201),
   },
 ];
 
