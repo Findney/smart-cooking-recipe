@@ -36,11 +36,12 @@ const IngredientSection: React.FC<Props> = ({ ingredients }) => {
               <IngredientItem
                 key={item.inventory_id}
                 imageUrl="https://placehold.co/56x56"
-                name={item.ingredients.name}
+                name={item.ingredients.name ?? "Unknown"}
                 stock={item.quantity}
-                unit={item.ingredients.unit}
+                unit={item.ingredients.unit ?? "pcs"}
               />
             ))}
+
           </div>
         ))}
       </div>
