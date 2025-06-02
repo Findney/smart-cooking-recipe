@@ -1,23 +1,24 @@
 import Link from "next/link";
 import React from "react";
-import { createClient } from "@/../utils/supabase/server";
+import { createClient } from "../../utils/supabase/server";
+import { link } from "fs";
 import Logout from "./auth/Logout";
 
 const Navbar = async () => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+
+  const {data: { user }} = await supabase.auth.getUser();
 
   return (
     <nav className="w-full border-b bg-background flex items-center justify-between px-4 h-16">
       {/* Left Side: Logo and Title */}
       <Link href="/" className="flex items-center">
         <div className="w-6 h-6 mr-2 flex flex-col justify-between">
+          {/* <div className="w-5 h-[5px] bg-foreground" />
           <div className="w-5 h-[5px] bg-foreground" />
-          <div className="w-5 h-[5px] bg-foreground" />
-          <div className="w-5 h-[5px] bg-foreground" />
+          <div className="w-5 h-[5px] bg-foreground" /> */}
         </div>
+
         <span className="text-foreground text-2xl font-extrabold font-['Inter'] leading-loose">
           Smart Cooking Recipe
         </span>
@@ -32,10 +33,12 @@ const Navbar = async () => {
 
         {!user ? (
           <Link href="/login">
+
             <div className="bg-blue-600 text-white text-sm px-4 py-2 rounded-sm">
               Login
             </div>
           </Link>
+
         ) : (
           <div className="relative group">
             <button className="text-foreground">{user.email}</button>
