@@ -9,20 +9,16 @@ interface CardItemProps {
 const RecipesCardItem: React.FC<CardItemProps> = ({ imageUrl, title, price }) => {
   return (
     <div
-      data-show-description="true"
-      className="min-w-60 p-4 bg-background rounded-lg outline outline-1 outline-offset-[-1px] outline-border inline-flex flex-col justify-start items-start gap-4"
+      className="min-w-60 max-w-xs bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden ring-1 ring-gray-200"
     >
-      <img className="self-stretch h-60 object-cover" src={imageUrl} alt={title} />
-      <div className="w-52 flex flex-col justify-start items-start gap-2">
-        <div className="self-stretch inline-flex justify-start items-start">
-          <div className="flex-1 text-foreground text-base font-normal leading-snug">{title}</div>
-        </div>
-        <div className="inline-flex justify-start items-start">
-          <div className="text-foreground text-base font-semibold leading-snug">{price}</div>
-        </div>
+      <img className="w-full h-48 object-cover" src={imageUrl} alt={title} />
+      <div className="p-4 flex flex-col gap-2">
+        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <p className="text-green-600 font-bold text-base">{price}</p>
       </div>
     </div>
   );
 };
+
 
 export default RecipesCardItem;
