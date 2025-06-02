@@ -1,4 +1,3 @@
-// lib/fetchInventory.ts
 import { supabase } from "./supabaseClient";
 
 export async function fetchExpiringInventory() {

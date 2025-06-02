@@ -12,7 +12,7 @@ const RecipesDisplay = () => {
   }, []);
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 p-6">
       {Object.entries(groupedItems).map(([category, items]) => (
         <CategorySection key={category} categoryName={category} items={items} />
       ))}
