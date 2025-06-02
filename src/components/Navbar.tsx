@@ -56,7 +56,7 @@ const Navbar = () => {
               <>
                 <Link href="/recipes" className="text-gray-600 hover:text-green-700 transition">Recipes</Link>
                 <Link href="/inventory" className="text-gray-600 hover:text-green-700 transition">Inventory</Link>
-                <Link href="/nutrition" className="text-gray-600 hover:text-green-700 transition">Nutrition</Link>
+                <Link href="/nutrition-tracker" className="text-gray-600 hover:text-green-700 transition">Nutrition</Link>
               </>
             )}
 
