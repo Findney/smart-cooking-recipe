@@ -2,14 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-import { createClient } from "@/../utils/supabase/server";
-import { headers } from "next/headers";
-import { use } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export async function signUp(formData:FormData) {
-    const supabase = await createClient();
-
     const credentials = {
         username: formData.get('username') as string,
         email: formData.get('email') as string,
@@ -47,8 +42,6 @@ export async function signUp(formData:FormData) {
 }
 
 export async function signIn(formData:FormData) {
-    const supabase = await createClient();
-
     const credentials = {
         email: formData.get('email') as string,
         password: formData.get('password') as string,
@@ -77,7 +70,6 @@ export async function signIn(formData:FormData) {
 }
 
 export async function signOut() {
-    const supabase = await createClient();
     const { error } = await supabase.auth.signOut();
 
     if (error) {

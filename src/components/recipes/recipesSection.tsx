@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import CardItem from "./recipesCardItem";
+import CardItem from "./RecipesCardItem";
 
 interface Item {
   id: number;
   imageUrl: string;
   title: string;
-  price: string;
+  cookingTime: string;
 }
 
 interface CategorySectionProps {
@@ -56,9 +56,10 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
           {items.map((item) => (
             <CardItem
               key={item.id}
+              id={item.id}
               imageUrl={item.imageUrl}
               title={item.title}
-              price={item.price}
+              cookingTime={item.cookingTime}
             />
           ))}
         </div>
@@ -70,8 +71,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
               className="absolute left-0 top-1/2 -translate-y-1/2 bg-background shadow rounded-full p-2 hidden group-hover:flex"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                   className="text-black">
+
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                className="text-black">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
@@ -80,8 +82,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
               className="absolute right-0 top-1/2 -translate-y-1/2 bg-background shadow rounded-full p-2 hidden group-hover:flex"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                   className="text-black">
+
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                className="text-black">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
