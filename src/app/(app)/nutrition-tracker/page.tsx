@@ -8,7 +8,11 @@ export default async function NutritionTrackerPage() {
   const data = await fetchTodayNutritionSummary();
 
   if (!data) {
-    return <div className="p-10 text-center text-gray-500">Data tidak tersedia.</div>;
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Data tidak tersedia.
+      </div>
+    );
   }
 
   const { date, totalCalories, macros, meals } = data;

@@ -39,16 +39,18 @@ export async function fetchExpiringIngredientsWithDaysLeft() : Promise<ExpiringI
   if (!data) return [];
 
   return data.map(item => {
+    const ingredient = Array.isArray(item.ingredients) ? item.ingredients[0] : item.ingredients;
     const expDate = new Date(item.expiration_date);
     const diffTime = expDate.getTime() - today.getTime();
     const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return {
       id: item.inventory_id,
-      name: item.ingredients.name,
-      ingredient_id: item.ingredients.ingredient_id,
+      name: ingredient?.name,
+      ingredient_id: ingredient?.ingredient_id,
       daysLeft,
     };
   }).sort((a, b) => a.daysLeft - b.daysLeft);
+  
 }
 
 export async function fetchRecommendedRecipesByIngredients(

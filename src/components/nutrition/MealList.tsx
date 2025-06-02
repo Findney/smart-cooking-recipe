@@ -7,7 +7,7 @@ type Meal = {
     id: string;
     recipeId?: string;
     name: string;
-    time: string;
+    category: string;
     calories: number;
     macros: Macro;
     imageUrl: string;
@@ -31,7 +31,7 @@ export default function MealList({ meals }: { meals: Meal[] }) {
                             </div>
                             <div className="flex-grow">
                                 <h3 className="text-lg font-semibold text-gray-800">{meal.name}</h3>
-                                <p className="text-sm text-gray-500 mb-1">{meal.time}</p>
+                                <p className="text-sm text-gray-500 mb-1">{meal.category}</p>
                                 <p className="text-sm text-green-700 font-medium">{meal.calories} kcal</p>
                                 <div className="text-xs text-gray-500 mt-1">
                                     K: {meal.macros.carbs}g | P: {meal.macros.protein}g | L: {meal.macros.fat}g

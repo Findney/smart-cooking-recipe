@@ -1,7 +1,50 @@
 import { supabase } from './supabaseClient';
 
-export async function fetchTodayNutritionSummary() {
-  const today = new Date().toISOString().split('T')[0];
+interface Recipe {
+  recipe_id: string;
+  title: string;
+  category?: string;
+  protein?: number;
+  fat?: number;
+  carbs?: number;
+  calory?: number;
+  image_url?: string;
+}
+
+interface MealLog {
+  log_id: number;
+  cooked_at: string;
+  recipe_id: string;
+  recipes: Recipe | null;
+}
+
+interface Meal {
+  id: string;
+  recipeId: string;
+  name: string;
+  category: string;
+  calories: number;
+  macros: {
+    carbs: number;
+    protein: number;
+    fat: number;
+  };
+  imageUrl: string;
+}
+
+interface NutritionSummary {
+  date: string;
+  totalCalories: number;
+  macros: {
+    carbs: number;
+    protein: number;
+    fat: number;
+  };
+  meals: Meal[];
+}
+
+export async function fetchTodayNutritionSummary(): Promise<NutritionSummary | null> {
+  const today = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD local time
 
   const { data, error } = await supabase
     .from('meal_log')
@@ -9,9 +52,10 @@ export async function fetchTodayNutritionSummary() {
       log_id,
       cooked_at,
       recipe_id,
-      recipes (
+      recipes:recipe_id (
         recipe_id,
         title,
+        category,
         protein,
         fat,
         carbs,
@@ -23,13 +67,18 @@ export async function fetchTodayNutritionSummary() {
 
   if (error || !data) return null;
 
-  const meals = data.map((log) => {
-    const recipe = log.recipes;
-    return {
+  const meals: Meal[] = data.flatMap((log) => {
+    const recipes = log.recipes;
+    if (!recipes || (Array.isArray(recipes) && recipes.length === 0)) throw new Error(`Invalid recipe data for log ${log.log_id}`);
+
+    // If recipes is an array, map each; if it's a single object, wrap in array
+    const recipesArray = Array.isArray(recipes) ? recipes : [recipes];
+
+    return recipesArray.map((recipe) => ({
       id: `meal-${log.log_id}`,
-      recipeId: `${recipe.recipe_id}`,
+      recipeId: recipe.recipe_id,
       name: recipe.title,
-      time: getMealTimeLabel(log.cooked_at),
+      category: recipe.category ?? "N/A",
       calories: recipe.calory ?? 0,
       macros: {
         carbs: recipe.carbs ?? 0,
@@ -37,7 +86,7 @@ export async function fetchTodayNutritionSummary() {
         fat: recipe.fat ?? 0,
       },
       imageUrl: recipe.image_url ?? '/images/default-placeholder.jpg',
-    };
+    }));
   });
 
   const totals = meals.reduce(
@@ -60,8 +109,4 @@ export async function fetchTodayNutritionSummary() {
     macros: totals.macros,
     meals,
   };
-}
-
-function getMealTimeLabel(cookedAt: string | null): string {
-  return 'Makan Tidak Diketahui';
 }
