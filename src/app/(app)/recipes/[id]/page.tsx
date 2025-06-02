@@ -69,7 +69,7 @@ export default function SingleRecipePage({ params }: { params: { id: string } })
           </h1>
 
           {/* Deskripsi Singkat */}
-          <p className="text-gray-600 text-lg mb-6">
+          <p className="text-gray-600 text-justify text-lg mb-6">
             {recipe.description}
           </p>
 
