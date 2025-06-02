@@ -8,10 +8,6 @@ const Navbar = async () => {
         <Link className="font-bold" href="/">
           Home
         </Link>
-
-        <div className="flex items-center gap-x-5">
-          <Link href="/private">Private</Link>
-        </div>
         <div className="flex items-center gap-x-5">
           <Link href="/login">
             <div className="bg-blue-600 text-white text-sm px-4 py-2 rounded-sm">

@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image'; // We might use this later for illustrative images
-import { Button } from "@/components/ui/button";
-
 
 // Placeholder for icons - in a real project, you'd use an icon library like Heroicons or Lucide React
 const PlaceholderIcon = ({ className }: { className?: string }) => (
@@ -9,8 +7,6 @@ const PlaceholderIcon = ({ className }: { className?: string }) => (
 );
 
 // 1. Navbar Component
-const isLoggedIn = false; // Ganti dengan state/selector/auth actual
-
 const Navbar = () => (
   <header className="bg-white shadow-md sticky top-0 z-50">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,45 +17,24 @@ const Navbar = () => (
           </Link>
         </div>
         <nav className="hidden md:flex space-x-6 items-center">
-          {!isLoggedIn ? (
-            <>
-              <Button variant="ghost" asChild>
-                <Link href="/login">Login</Link>
-              </Button>
-              <Button variant="default" asChild>
-                <Link href="/signup">Sign Up Free</Link>
-              </Button>
-            </>
-          ) : (
-            <Link href="/profile">
-              <img
-                src="/profile-photo.jpg"
-                alt="Profile"
-                className="w-10 h-10 rounded-full object-cover border-2 border-green-600 hover:ring-2 ring-green-400 transition"
-              />
-            </Link>
-          )}
+          {/* Future links can go here: Features, About, Contact */}
+          <Link href="/login" className="text-gray-600 hover:text-green-700 transition duration-150 ease-in-out">
+            Login
+          </Link>
+          <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out">
+            Sign Up Free
+          </Link>
         </nav>
         <div className="md:hidden">
-          {!isLoggedIn ? (
-            <Button size="sm" asChild>
-              <Link href="/signup">Sign Up</Link>
-            </Button>
-          ) : (
-            <Link href="/profile">
-              <img
-                src="/profile-photo.jpg"
-                alt="Profile"
-                className="w-9 h-9 rounded-full object-cover border border-green-500"
-              />
-            </Link>
-          )}
+          {/* Mobile menu button can be added here */}
+          <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md text-sm">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>
   </header>
 );
-
 
 // 2. Hero Section Component
 const HeroSection = () => (
@@ -69,12 +44,11 @@ const HeroSection = () => (
         Cook Smarter, Live Healthier.
       </h1>
       <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-        Your intelligent kitchen assistant for personalized meal planning, efficient inventory management, and insightful nutrition tracking. Say goodbye to food waste and hello to delicious, healthy meals! [cite: 7, 8, 9, 10, 16]
+        Your intelligent kitchen assistant for personalized meal planning, efficient inventory management, and insightful nutrition tracking. Say goodbye to food waste and hello to delicious, healthy meals!
       </p>
-      <Button variant="default" size="lg" asChild>
-        <Link href="/signup">Get Started For Free</Link>
-      </Button>
-
+      <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-4 rounded-lg text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out">
+        Get Started For Free
+      </Link>
     </div>
   </section>
 );
@@ -84,20 +58,20 @@ const FeaturesSection = () => {
   const features = [
     {
       title: "Intelligent Meal Preparation",
-      description: "Receive recipe recommendations based on available ingredients, manage checklists, and find ingredient substitutions easily. [cite: 8, 27, 30]",
-      longDescription: "Our Meal Preparation Assistant helps you plan daily menus quickly and relevantly to your kitchen's contents, with recipes categorized for easy navigation. [cite: 4, 27, 28]",
+      description: "Receive recipe recommendations based on available ingredients, manage checklists, and find ingredient substitutions easily.",
+      longDescription: "Our Meal Preparation Assistant helps you plan daily menus quickly and relevantly to your kitchen's contents, with recipes categorized for easy navigation.",
       // icon: <ActualIconComponent1 />
     },
     {
       title: "Smart Ingredient Inventory",
-      description: "Track your food items, get alerts for expiring products, and reduce waste with recipes tailored to use what you have. [cite: 8, 36, 40, 42]",
-      longDescription: "Manage your ingredients efficiently, preventing food waste with manual or barcode entry, and an expiration calendar that suggests recipes for items nearing their end date. [cite: 4, 36, 39, 40, 42]",
+      description: "Track your food items, get alerts for expiring products, and reduce waste with recipes tailored to use what you have.",
+      longDescription: "Manage your ingredients efficiently, preventing food waste with manual or barcode entry, and an expiration calendar that suggests recipes for items nearing their end date.",
       // icon: <ActualIconComponent2 />
     },
     {
       title: "Daily Nutrition Tracking",
-      description: "Monitor your nutritional intake, set dietary preferences and allergy alerts, and gain insights for a healthier lifestyle. [cite: 8, 44, 45, 47]",
-      longDescription: "Understand your consumption quality with daily nutrition accumulation from cooked meals, preference settings for diets and allergies, and alerts if your intake deviates from recommended or personal targets. [cite: 4, 44, 45, 46, 47, 48]",
+      description: "Monitor your nutritional intake, set dietary preferences and allergy alerts, and gain insights for a healthier lifestyle.",
+      longDescription: "Understand your consumption quality with daily nutrition accumulation from cooked meals, preference settings for diets and allergies, and alerts if your intake deviates from recommended or personal targets.",
       // icon: <ActualIconComponent3 />
     }
   ];
@@ -108,7 +82,7 @@ const FeaturesSection = () => {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">Why Smart Cooking Recipe?</h2>
           <p className="text-lg text-gray-600 mt-4 max-w-xl mx-auto">
-            We help you make the most out of your kitchen, supporting your health and a sustainable lifestyle. [cite: 9, 10, 16]
+            We help you make the most out of your kitchen, supporting your health and a sustainable lifestyle.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
@@ -136,10 +110,9 @@ const CallToActionSection = () => (
       <p className="text-lg text-green-100 mb-10 max-w-xl mx-auto">
         Join thousands of smart cooks who are planning better, eating healthier, and wasting less.
       </p>
-      <Button variant="outline" size="lg" className="bg-white text-green-600 hover:bg-gray-100" asChild>
-        <Link href="/signup">Sign Up Now - It's Free!</Link>
-      </Button>
-
+      <Link href="/signup" className="bg-white hover:bg-gray-100 text-green-600 font-bold px-10 py-4 rounded-lg text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out">
+        Sign Up Now - It's Free!
+      </Link>
     </div>
   </section>
 );
@@ -149,12 +122,9 @@ const CallToActionSection = () => (
 const Footer = () => (
   <footer className="bg-gray-800 text-white py-10">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p className="mb-2">&copy; {new Date().getFullYear()} Smart Cooking Recipe. Developed by Willy Jonathan Arsyad & Agil Mughni. [cite: 2]</p>
-      <p className="text-sm text-gray-400">An PPL Project for Universitas Syiah Kuala. [cite: 1, 3]</p>
+      <p className="mb-2">&copy; {new Date().getFullYear()} Smart Cooking Recipe. <br/>Developed by Willy Jonathan Arsyad & Agil Mughni.</p>
+      <p className="text-sm text-gray-400">A PPL Project for Universitas Syiah Kuala.</p>
       <div className="mt-4 space-x-4">
-        {/* Add links to Privacy Policy, Terms of Service if they exist */}
-        {/* <Link href="/privacy" className="hover:text-green-400">Privacy Policy</Link>
-        <Link href="/terms" className="hover:text-green-400">Terms of Service</Link> */}
       </div>
     </div>
   </footer>
@@ -164,6 +134,7 @@ const Footer = () => (
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <Navbar />
       <main className="flex-grow">
         <HeroSection />
         <FeaturesSection />
