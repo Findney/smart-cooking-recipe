@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import AddIngredientPopup from "@/components/inventory/AddIngredients";
 import IngredientSection from "@/components/inventory/IngredientsSection";
-import CalendarSection from "@/components/inventory/Calendar"
+import CalendarSection from "@/components/inventory/Calendar";
 import RecipeSection from "@/components/recipes/RecipesSection";
-import { supabase } from "@/lib/supabaseClient";
+import { fetchExpiringInventory } from "@/lib/fetchInventory";
 
 export default function InventoryPage() {
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -28,37 +28,16 @@ export default function InventoryPage() {
     ];
 
     useEffect(() => {
-        const today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
-        const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            .toISOString()
-            .split("T")[0];
-
-        supabase
-            .from("inventory")
-            .select(`
-            inventory_id,
-            quantity,
-            expiration_date,
-            ingredients (
-              ingredient_id,
-              name,
-              unit
-            )
-          `)
-            .gte("expiration_date", today)
-            .lte("expiration_date", nextWeek)
-            .then(({ data }) => {
-                if (data) setIngredients(data);
-            });
+        fetchExpiringInventory()
+            .then(setIngredients)
+            .catch(console.error);
     }, [refreshKey]);
-
 
     return (
         <div className="relative p-6">
             <CalendarSection />
 
             <h1 className="text-2xl font-bold mb-4">Inventory</h1>
-
             <IngredientSection key={refreshKey} ingredients={ingredients} />
 
             <h2 className="text-xl font-semibold mt-8 mb-4">Recommended Recipes</h2>
