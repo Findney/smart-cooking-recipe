@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
-    "smart-cooking-recipe": "file:"
+    "smart-cooking-recipe": "file:",
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

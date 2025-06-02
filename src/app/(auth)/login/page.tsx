@@ -1,5 +1,5 @@
-import LoginForm from "@/components/LoginForm";
-import LoginGithub from "@/components/LoginGithub";
+import LoginForm from "@/components/auth/LoginForm";
+import LoginGithub from "@/components/auth/LoginGithub";
 import Link from "next/link";
 
 export default function LoginPage() {
