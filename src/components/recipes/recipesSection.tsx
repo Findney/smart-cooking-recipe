@@ -45,8 +45,8 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
   };
 
   return (
-    <div className="mb-8 mx-10 relative">
-      <h2 className="text-xl font-bold text-foreground mb-4">{categoryName}</h2>
+    <div className="mb-8 relative">
+      <h2 className="text-[20px] font-bold text-black mb-4">{categoryName}</h2>
 
       <div className="relative group">
         <div
@@ -71,8 +71,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
               className="absolute left-0 top-1/2 -translate-y-1/2 bg-background shadow rounded-full p-2 hidden group-hover:flex"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                className="text-foreground">
+                className="text-black">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
@@ -81,8 +82,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
               className="absolute right-0 top-1/2 -translate-y-1/2 bg-background shadow rounded-full p-2 hidden group-hover:flex"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                className="text-foreground">
+                className="text-black">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>

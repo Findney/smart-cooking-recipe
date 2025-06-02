@@ -59,12 +59,14 @@ export async function signIn(formData:FormData) {
 
     // TODO: create user instance
 
-    revalidatePath("/", "layout");
+    revalidatePath("/dashboard", "layout");
+    redirect("/dashboard")
     return {
         status: "success",
         user: data.user,
     };
     
+
 }
 
 export async function signOut() {

@@ -17,13 +17,16 @@ const RecipeCardItem: React.FC<CardItemProps> = ({ imageUrl, title, cookingTime,
       >
         <img className="w-full h-60 object-cover" src={imageUrl} alt={title} />
         <div className="w-full flex flex-col justify-start items-start gap-2">
-          <div className="text-foreground text-base font-normal leading-snug">
+          <div className="text-lg font-semibold text-gray-800">
             {title}
           </div>
-          <div className="text-foreground text-base font-semibold leading-snug">
+          <div className="text-green-600 font-bold text-base">
             {cookingTime} minutes
           </div>
         </div>
+
+        {/* <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <p className="text-green-600 font-bold text-base">{price}</p> */}
       </div>
     </Link>
   );
