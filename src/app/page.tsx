@@ -6,35 +6,7 @@ const PlaceholderIcon = ({ className }: { className?: string }) => (
   <svg className={`w-16 h-16 text-green-500 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v11.494m0 0A8.991 8.991 0 0012 21c4.418 0 8-3.134 8-7 0-3.866-3.582-7-8-7S4 7.134 4 11c0 3.866 3.582 7 8 7z"></path></svg>
 );
 
-// 1. Navbar Component
-const Navbar = () => (
-  <header className="bg-white shadow-md sticky top-0 z-50">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between h-16">
-        <div className="flex-shrink-0">
-          <Link href="/" className="text-3xl font-bold text-green-600">
-            Smart Cooking Recipe
-          </Link>
-        </div>
-        <nav className="hidden md:flex space-x-6 items-center">
-          {/* Future links can go here: Features, About, Contact */}
-          <Link href="/login" className="text-gray-600 hover:text-green-700 transition duration-150 ease-in-out">
-            Login
-          </Link>
-          <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out">
-            Sign Up Free
-          </Link>
-        </nav>
-        <div className="md:hidden">
-          {/* Mobile menu button can be added here */}
-          <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md text-sm">
-            Sign Up
-          </Link>
-        </div>
-      </div>
-    </div>
-  </header>
-);
+
 
 // 2. Hero Section Component
 const HeroSection = () => (
@@ -134,7 +106,6 @@ const Footer = () => (
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
       <main className="flex-grow">
         <HeroSection />
         <FeaturesSection />
