@@ -1,41 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import CategorySection from "@/components/recipes/recipesSection";
+import { fetchRecipesByCategory } from "@/lib/fetchRecipes";
 
-const generateItems = (count: number, prefix: string, startId: number) =>
-  Array.from({ length: count }, (_, i) => ({
-    id: startId + i,
-    imageUrl: "https://placehold.co/208x247",
-    title: `${prefix} Item ${i + 1}`,
-    price: `$${(i + 1) * 1.5}`,
-  }));
+const RecipesDisplay = () => {
+  const [groupedItems, setGroupedItems] = useState<Record<string, any[]>>({});
 
-const categories = [
-  {
-    categoryName: "Category 1",
-    items: generateItems(20, "Cat1", 1),
-  },
-  {
-    categoryName: "Category 2",
-    items: generateItems(5, "Cat2", 101),
-  },
-  {
-    categoryName: "Category 3",
-    items: generateItems(10, "Cat3", 201),
-  },
-];
+  useEffect(() => {
+    fetchRecipesByCategory().then(setGroupedItems).catch(console.error);
+  }, []);
 
-const CategoryListPage = () => {
   return (
-    <div className="p-6 space-y-8">
-      {categories.map((category) => (
-        <CategorySection
-          key={category.categoryName}
-          categoryName={category.categoryName}
-          items={category.items}
-        />
+    <div className="space-y-12">
+      {Object.entries(groupedItems).map(([category, items]) => (
+        <CategorySection key={category} categoryName={category} items={items} />
       ))}
     </div>
   );
 };
 
-export default CategoryListPage;
+export default RecipesDisplay;

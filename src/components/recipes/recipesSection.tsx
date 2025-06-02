@@ -56,6 +56,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
           {items.map((item) => (
             <CardItem
               key={item.id}
+              id={item.id}
               imageUrl={item.imageUrl}
               title={item.title}
               cookingTime={item.cookingTime}
