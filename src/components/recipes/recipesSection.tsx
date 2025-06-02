@@ -7,7 +7,7 @@ interface Item {
   id: number;
   imageUrl: string;
   title: string;
-  price: string;
+  cookingTime: string;
 }
 
 interface CategorySectionProps {
@@ -58,7 +58,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName, items }
               key={item.id}
               imageUrl={item.imageUrl}
               title={item.title}
-              price={item.price}
+              cookingTime={item.cookingTime}
             />
           ))}
         </div>

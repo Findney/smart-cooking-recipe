@@ -3,10 +3,10 @@ import React from "react";
 interface CardItemProps {
   imageUrl: string;
   title: string;
-  price: string;
+  cookingTime: string;
 }
 
-const RecipesCardItem: React.FC<CardItemProps> = ({ imageUrl, title, price }) => {
+const RecipesCardItem: React.FC<CardItemProps> = ({ imageUrl, title, cookingTime }) => {
   return (
     <div
       data-show-description="true"
@@ -18,7 +18,7 @@ const RecipesCardItem: React.FC<CardItemProps> = ({ imageUrl, title, price }) =>
           <div className="flex-1 text-foreground text-base font-normal leading-snug">{title}</div>
         </div>
         <div className="inline-flex justify-start items-start">
-          <div className="text-foreground text-base font-semibold leading-snug">{price}</div>
+          <div className="text-foreground text-base font-semibold leading-snug">{cookingTime}</div>
         </div>
       </div>
     </div>
