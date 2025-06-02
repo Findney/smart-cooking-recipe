@@ -88,7 +88,7 @@ export default function SingleRecipePage({ params }: { params: { id: string } })
           {/* Estimasi Nutrisi - Sesuai dengan proposal [cite: 34] */}
           <div className="mb-8 p-4 bg-blue-50 rounded-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-3 flex items-center">
-              <ScaleIcon className="w-6 h-6 text-blue-600 mr-2" /> Estimasi Fakta Nutrisi (per porsi)
+              <ScaleIcon className="w-6 h-6 text-blue-600 mr-2" /> Estimasi Fakta Nutrisi
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
               <p><span className="font-medium text-gray-600">Kalori:</span> {recipe.estimatedNutrition.calories} kcal</p>
@@ -120,7 +120,7 @@ export default function SingleRecipePage({ params }: { params: { id: string } })
           </div>
 
           {/* Daftar Bahan - Sesuai dengan proposal [cite: 29] */}
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <h3 className="text-2xl font-semibold text-gray-700 mb-4">Bahan-Bahan</h3>
             <ul className="list-disc list-inside space-y-2 pl-4 text-gray-600 bg-gray-50 p-4 rounded-md">
               {recipe.ingredients.map((ingredient) => (
@@ -130,7 +130,7 @@ export default function SingleRecipePage({ params }: { params: { id: string } })
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           {/* Langkah Memasak - Sesuai dengan proposal [cite: 32] */}
           <div>
