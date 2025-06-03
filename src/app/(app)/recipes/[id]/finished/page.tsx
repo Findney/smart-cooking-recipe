@@ -50,11 +50,10 @@ export default function CookingFinishedPage({ params }: { params: { id: string }
         </p>
 
         <div className="relative h-48 w-full rounded-lg overflow-hidden mb-8 shadow-md">
-          <Image
+          <img
             src={recipe.imageUrl}
             alt={`Gambar ${recipe.title}`}
-            layout="fill"
-            objectFit="cover"
+            className="object-cover w-full h-full"
           />
         </div>
 
