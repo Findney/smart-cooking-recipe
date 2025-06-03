@@ -1,3 +1,4 @@
+// components/AddIngredientPopup.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -18,14 +19,22 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
   const [nameSuggestions, setNameSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
-    supabase.from("units").select("name").then(({ data }) => {
-      if (data) setUnits(data.map(u => u.name));
-    });
+    if (!isOpen) return;
+    async function fetchUnits() {
+      const { data, error } = await supabase.rpc("get_enum_labels", {
+        enum_name: "enum_unit",
+      });
+      if (error) {
+        console.error("Error fetching enum labels:", error);
+        return;
+      }
+      if (data) {
+        setUnits(data.map((item: { enumlabel: string }) => item.enumlabel));
+      }
+    }
 
-    supabase.from("ingredients").select("name").then(({ data }) => {
-      if (data) setNameSuggestions(data.map(i => i.name));
-    });
-  }, []);
+    fetchUnits();
+  }, [isOpen]);
 
   const handleSubmit = async () => {
     if (!name || !quantity || !unit || !expiryDate) return;
@@ -35,6 +44,7 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
       unit,
       expiry_date: expiryDate,
     });
+
     onSave();
     onClose();
   };
@@ -42,10 +52,10 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
+    <div className="text-gray-400 fixed inset-0 bg-black/30 flex justify-center items-center z-50">
       <div className="bg-white w-full max-w-md p-6 rounded-lg relative">
         <button onClick={onClose} className="absolute top-2 right-3 text-xl font-bold">×</button>
-        <h2 className="text-xl font-semibold mb-4">Add New Ingredient</h2>
+        <h2 className="text-black text-xl font-semibold mb-4">Add New Ingredient</h2>
 
         <input
           type="text"
@@ -72,8 +82,9 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
             onChange={e => setUnit(e.target.value)}
             className="w-1/2 border px-3 py-2 rounded"
           >
-            <option value="">Unit</option>
-            {units.map((u, idx) => <option key={idx} value={u}>{u}</option>)}
+            {units.map((u, idx) => (
+              <option key={idx} value={u}>{u}</option>
+            ))}
           </select>
         </div>
 
