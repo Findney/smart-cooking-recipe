@@ -39,6 +39,7 @@ const IngredientSection: React.FC<Props> = ({ ingredients }) => {
                 name={item.ingredients.name ?? "Unknown"}
                 stock={item.quantity}
                 unit={item.ingredients.unit ?? "pcs"}
+                expiration_date={item.expiration_date ?? "N/A"}
               />
             ))}
 

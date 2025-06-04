@@ -24,11 +24,12 @@ export default function InventoryPage() {
                     const expDate = new Date(item.expiration_date);
                     const diffTime = expDate.getTime() - today.getTime();
                     const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+                    const expiration_date = `${expDate.getDate()}/${expDate.getMonth() + 1}/${expDate.getFullYear()}`;
                     return {
                         ...item,
                         daysLeft,
                         ingredient_id: item.ingredients.ingredient_id,
+                        expiration_date
                     };
                 }).sort((a, b) => a.daysLeft - b.daysLeft);
 
@@ -44,6 +45,7 @@ export default function InventoryPage() {
                 setRecommendedRecipes(recipes);
             } catch (error) {
                 console.error(error);
+
                 setIngredients([]);
                 setRecommendedRecipes([]);
             }
@@ -61,7 +63,7 @@ export default function InventoryPage() {
             <RecipeSection categoryName="Recommended" items={recommendedRecipes} />
 
             <button
-                className="fixed bottom-6 right-6 px-5 py-3 rounded-full shadow-md"
+                className="fixed bg-[#50d71e] bottom-6 right-6 px-5 py-3 rounded-full shadow-md"
                 onClick={() => setPopupOpen(true)}
             >
                 +

@@ -1,0 +1,62 @@
+.custom-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: #ededed;
+  border: none;
+  font-family: inherit;
+}
+
+/* Tanggal di bulan ini (hitam) */
+.custom-calendar .react-calendar_month-viewdays_day {
+  color: black;
+  position: relative;
+}
+
+/* Tanggal sebelum dan sesudah bulan ini (abu-abu pudar) */
+.custom-calendar .react-calendar_month-viewdays_day--neighboringMonth {
+  color: #cccccc;
+}
+
+/* Tanggal yang ditandai/dipilih (merah) */
+.custom-calendar .react-calendar__tile--active,
+.custom-calendar .react-calendar__tile--active:enabled:hover,
+.custom-calendar .react-calendar__tile--active:enabled:focus {
+  background: #ff4444;
+  color: white;
+}
+
+/* Hover effect untuk tanggal */
+.custom-calendar .react-calendar__tile:enabled:hover,
+.custom-calendar .react-calendar__tile:enabled:focus {
+  background-color: #ffeeee;
+  color: #ff4444;
+}
+
+/* Style untuk container calendar */
+.calendar-container {
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+/* Style untuk tanggal kadaluarsa */
+.expiring-date {
+  background-color: #fff0f0 !important;
+  color: #ff4444 !important;
+  font-weight: bold;
+}
+
+.expiring-items {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

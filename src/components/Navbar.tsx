@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/../utils/supabase/client";
-import { signOut } from "@/actions/auth";
+import Logout from "./auth/Logout";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
@@ -66,7 +66,7 @@ const Navbar = () => {
                   Login
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/register"
                   className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition"
                 >
                   Sign Up Free
@@ -79,7 +79,8 @@ const Navbar = () => {
                   <Link href="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</Link>
                   <div className="border-t" />
                   <div className="px-4 py-2">
-                    <button onClick={() => signOut()} className="w-full text-left">Logout</button>
+                    <Logout />
+                    {/* <button onClick={() => signOut()} className="w-full text-left">Logout</button> */}
                   </div>
                 </div>
               </div>
