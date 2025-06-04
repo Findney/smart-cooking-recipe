@@ -150,7 +150,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
 
           <div className="p-6 md:p-8">
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-1">
-              Langkah {currentInstruction.step}
+              Step {currentInstruction.step}
             </h2>
             <p className="text-gray-700 leading-relaxed text-base sm:text-lg mt-2 mb-6 min-h-[6em]">
               {currentInstruction.instruction}

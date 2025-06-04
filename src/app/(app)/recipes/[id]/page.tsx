@@ -8,8 +8,20 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-export default async function SingleRecipePage({ params }: { params: { id: string } }) {
-  const recipeId = parseInt(params.id);
+export default async function SingleRecipePage(props: { params: Promise<{ id: string }> }) {
+  // Tunggu params yang berupa Promise
+  const params = await props.params;
+
+  const recipeId = Number(params.id);
+
+  if (isNaN(recipeId)) {
+    return (
+      <div className="container mx-auto p-8 text-center text-red-500 font-semibold">
+        ID Resep tidak valid.
+      </div>
+    );
+  }
+
 
   const { data: recipe, error: recipeError } = await supabase
     .from('recipes')
@@ -92,23 +104,22 @@ export default async function SingleRecipePage({ params }: { params: { id: strin
 
           {/* Tombol Aksi */}
           <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-8">
-          <Link
-            href={`/recipes/${recipeId}/check-ingredients`}
-            className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-colors duration-150 text-center"
-          >
-            <ClipboardIcon className="w-5 h-5 mr-2 -ml-1" />
-            Periksa Bahan-Bahan
-          </Link>
+            <Link
+              href={`/recipes/${recipeId}/check-ingredients`}
+              className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-colors duration-150 text-center"
+            >
+              <ClipboardIcon className="w-5 h-5 mr-2 -ml-1" />
+              Periksa Bahan-Bahan
+            </Link>
 
-          <Link
-            href={`/recipes/${recipeId}/start-cooking`}
-            className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-150 text-center"
-          >
-            <PlayIcon className="w-5 h-5 mr-2 -ml-1" />
-            Mulai Memasak Sekarang
-          </Link>
-        </div>
-
+            <Link
+              href={`/recipes/${recipeId}/start-cooking`}
+              className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-150 text-center"
+            >
+              <PlayIcon className="w-5 h-5 mr-2 -ml-1" />
+              Mulai Memasak Sekarang
+            </Link>
+          </div>
 
           {/* Bahan-Bahan */}
           <div className="mb-8">
