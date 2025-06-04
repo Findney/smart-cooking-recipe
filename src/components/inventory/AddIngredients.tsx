@@ -1,8 +1,8 @@
-// components/AddIngredientPopup.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { getUser } from "@/actions/auth";
 
 interface Props {
   isOpen: boolean;
@@ -33,19 +33,77 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
       }
     }
     fetchUnits();
+
+    supabase.from("ingredients").select("name").then(({ data }) => {
+      if (data) setNameSuggestions(data.map(i => i.name));
+    });
   }, [isOpen]);
 
   const handleSubmit = async () => {
-    if (!name || !quantity || !unit || !expiryDate) return;
-    await supabase.from("ingredients").insert({
-      name,
+    const user = await getUser()
+
+    if (!name || !quantity || !unit || !expiryDate || !user) {
+      alert("Missing field(s)");
+      return
+    };
+
+    // 1. Check if ingredient exists
+    const { data: existingIngredients, error: checkError } = await supabase
+      .from("ingredients")
+      .select("ingredient_id")
+      .eq("name", name)
+      // .eq("unit", unit)
+      .maybeSingle();
+
+    let ingredientId;
+
+    if (checkError && checkError.code !== "PGRST116") {
+      alert("Error checking existing ingredient");
+      return;
+    }
+
+    if (existingIngredients) {
+      ingredientId = existingIngredients.ingredient_id;
+    } else {
+      const { data: newIngredient, error: insertError } = await supabase
+        .from("ingredients")
+        .insert({ name: name, unit: unit })
+        .select("ingredient_id")
+        .single();
+
+      if (insertError) {
+        alert("Failed to insert new ingredient");
+        return;
+      }
+
+      ingredientId = newIngredient.ingredient_id;
+    }
+
+    // Insert into inventory
+    const { error: inventoryError } = await supabase.from("inventory").insert({
+      user_id: user.id,
+      ingredient_id: ingredientId,
       quantity: parseFloat(quantity),
-      unit,
-      expiry_date: expiryDate,
+      expiration_date: expiryDate,
+      added_at: new Date().toISOString().split("T")[0],
     });
+
+    if (inventoryError) {
+      alert("Failed to add ingredient to inventory");
+      return;
+    }
+
+    // Clear fields
+    setName("");
+    setQuantity("");
+    setUnit("");
+    setExpiryDate("");
+
+    alert("Ingredient successfully added");
     onSave();
     onClose();
   };
+
 
   if (!isOpen) return null;
 
@@ -80,6 +138,7 @@ const AddIngredientPopup = ({ isOpen, onClose, onSave }: Props) => {
             onChange={e => setUnit(e.target.value)}
             className="w-1/2 border px-3 py-2 rounded"
           >
+            <option value="" disabled>Select unit</option>
             {units.map((u, idx) => (
               <option key={idx} value={u}>{u}</option>
             ))}

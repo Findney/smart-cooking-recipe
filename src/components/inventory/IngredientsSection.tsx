@@ -28,17 +28,18 @@ const IngredientSection: React.FC<Props> = ({ ingredients }) => {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto scrollbar-hide">
       <div className="inline-flex gap-6">
         {columns.map((column, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-4">
             {column.map((item) => (
               <IngredientItem
                 key={item.inventory_id}
-                imageUrl="https://placehold.co/56x56"
+                imageUrl="/images/cook.png"
                 name={item.ingredients.name ?? "Unknown"}
                 stock={item.quantity}
                 unit={item.ingredients.unit ?? "pcs"}
+                expiration_date={item.expiration_date ?? "N/A"}
               />
             ))}
 

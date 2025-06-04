@@ -32,10 +32,10 @@ interface MacroChartProps {
 
 const MacroChart: React.FC<MacroChartProps> = ({ macroData }) => {
   const data: ChartData<'bar'> = {
-    labels: ['Karbohidrat (g)', 'Protein (g)', 'Lemak (g)'],
+    labels: ['Karbohidrat', 'Protein', 'Lemak'],
     datasets: [
       {
-        label: 'Makronutrien Harian',
+        label: 'Daily Macronutrients',
         data: [macroData.carbs, macroData.protein, macroData.fat],
         backgroundColor: [
           'rgba(54, 162, 235, 0.6)', // Biru untuk Karbo
@@ -61,9 +61,9 @@ const MacroChart: React.FC<MacroChartProps> = ({ macroData }) => {
       },
       title: {
         display: true,
-        text: 'Distribusi Makronutrien Harian (gram)',
+        text: 'Daily Macronutrients Distributions (grams)',
         font: {
-            size: 16,
+          size: 16,
         }
       },
     },
@@ -71,9 +71,9 @@ const MacroChart: React.FC<MacroChartProps> = ({ macroData }) => {
       y: {
         beginAtZero: true,
         title: {
-            display: true,
-            text: 'Gram (g)'
-        }
+          display: true,
+          text: 'Grams (gr)'
+        },
       },
     },
   };

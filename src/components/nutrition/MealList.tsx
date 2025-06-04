@@ -18,7 +18,7 @@ export default function MealList({ meals }: { meals: Meal[] }) {
         <section>
             <h2 className="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
                 <Squares2X2Icon className="w-7 h-7 mr-2 text-green-600" />
-                Makanan Tercatat Hari Ini
+                Today`s Logged Meal
             </h2>
             {meals.length > 0 ? (
                 <div className="space-y-4">
@@ -34,7 +34,7 @@ export default function MealList({ meals }: { meals: Meal[] }) {
                                 <p className="text-sm text-gray-500 mb-1">{meal.category}</p>
                                 <p className="text-sm text-green-700 font-medium">{meal.calories} kcal</p>
                                 <div className="text-xs text-gray-500 mt-1">
-                                    K: {meal.macros.carbs}g | P: {meal.macros.protein}g | L: {meal.macros.fat}g
+                                    Cal: {meal.macros.carbs}g | Protein: {meal.macros.protein}g | Fat: {meal.macros.fat}g
                                 </div>
                             </div>
                             {meal.recipeId && (

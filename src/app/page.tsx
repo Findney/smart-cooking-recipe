@@ -23,12 +23,19 @@ const PlaceholderIcon: React.FC<{ className?: string }> = ({ className }) => (
 
 // Hero Section
 const HeroSection: React.FC = () => (
-  <section className="bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 py-20 md:py-32 text-center">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 mb-6 leading-tight">
+  <section className="relative bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 py-20 md:py-32 text-center overflow-hidden">
+    <div
+      className="absolute top-0 w-full h-full bg-cover bg-center opacity-40"
+      style={{
+        backgroundImage: "url('https://www.foodandwine.com/thmb/0E1j1pnNdKlPrZGz1UGzdWHB1LA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Lemon-Ricotta-Stuffed-Shells-FT-MAG-RECIPE-1224-02-54221272e329475d8e4f2d90dc27dcc3.jpg')"
+      }}
+    ></div>
+
+    <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 className="text-4xl text-gray-800 sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-md">
         Cook Smarter, Live Healthier.
       </h1>
-      <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+      <p className="text-lg text-gray-600 sm:text-xl mb-10 max-w-2xl mx-auto drop-shadow-sm">
         Your intelligent kitchen assistant for personalized meal planning, efficient inventory management, and insightful nutrition tracking. Say goodbye to food waste and hello to delicious, healthy meals!
       </p>
       <Link
@@ -117,7 +124,6 @@ const LandingPage: React.FC = () => (
       <HeroSection />
       <FeaturesSection />
       <CallToActionSection />
-      <Footer />
     </main>
   </div>
 );
