@@ -9,8 +9,28 @@ import { fetchExpiringInventory } from "@/lib/fetchInventory";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+interface InventoryItem {
+  inventory_id: number;
+  quantity: number;
+  expiration_date: string;
+  ingredients: {
+    ingredient_id: number;
+    name: string;
+    unit: string;
+  };
+}
+
+interface ExpiryItem {
+  name: string;
+  daysLeft: number;
+}
+
 interface ExpiryData {
-  [key: string]: number;
+  [key: string]: {
+    count: number;
+    isWithinWeek: boolean;
+    items: ExpiryItem[];
+  };
 }
 
 export default function CalendarSection() {
@@ -20,12 +40,31 @@ export default function CalendarSection() {
   useEffect(() => {
     const loadExpiryDates = async () => {
       try {
-        const data = await fetchExpiringInventory();
+        const rawData = await fetchExpiringInventory();
+        const data = rawData as unknown as InventoryItem[];
         const dates: ExpiryData = {};
+        const today = new Date();
+        const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
         data.forEach((item) => {
           const date = item.expiration_date.split('T')[0];
-          dates[date] = (dates[date] || 0) + 1;
+          const expiryDate = new Date(item.expiration_date);
+          const diffTime = expiryDate.getTime() - today.getTime();
+          const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          const isWithinWeek = expiryDate.getTime() - today.getTime() <= oneWeek;
+
+          if (!dates[date]) {
+            dates[date] = { 
+              count: 0, 
+              isWithinWeek,
+              items: []
+            };
+          }
+          dates[date].count += 1;
+          dates[date].items.push({
+            name: item.ingredients.name,
+            daysLeft
+          });
         });
 
         setExpiryDates(dates);
@@ -47,13 +86,27 @@ export default function CalendarSection() {
     }
   };
 
+  const formatTooltipContent = (items: ExpiryItem[]) => {
+    return items
+      .sort((a, b) => a.daysLeft - b.daysLeft)
+      .map(item => `${item.name} (${item.daysLeft} days left)`)
+      .join('\n');
+  };
+
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       const dateStr = date.toISOString().split('T')[0];
-      if (expiryDates[dateStr]) {
+      if (expiryDates[dateStr]?.count) {
         return (
-          <div className="expiring-items">
-            {expiryDates[dateStr]}
+          <div className="tooltip-wrapper">
+            <div className="expiring-items">
+              {expiryDates[dateStr].count}
+            </div>
+            {expiryDates[dateStr].items.length > 0 && (
+              <div className="tooltip">
+                {formatTooltipContent(expiryDates[dateStr].items)}
+              </div>
+            )}
           </div>
         );
       }
@@ -64,9 +117,16 @@ export default function CalendarSection() {
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       const dateStr = date.toISOString().split('T')[0];
+      const classes = [];
+
       if (expiryDates[dateStr]) {
-        return 'expiring-date';
+        classes.push('expiring-date');
+        if (expiryDates[dateStr].isWithinWeek) {
+          classes.push('week-expiring');
+        }
       }
+
+      return classes.join(' ');
     }
     return '';
   };
