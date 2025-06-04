@@ -24,6 +24,7 @@ export default function InventoryPage() {
                     const expDate = new Date(item.expiration_date);
                     const diffTime = expDate.getTime() - today.getTime();
                     const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
                     return {
                         ...item,
                         daysLeft,
@@ -53,7 +54,7 @@ export default function InventoryPage() {
         <div className="relative p-6">
             <CalendarSection />
 
-            <h1 className="text-2xl font-bold mb-4">Inventory</h1>
+            <h1 className="text-2xl font-bold text-black mb-4">Inventory</h1>
             <IngredientSection key={refreshKey} ingredients={ingredients} />
 
             <h2 className="text-xl font-semibold mt-8 mb-4">Recommended Recipes</h2>
