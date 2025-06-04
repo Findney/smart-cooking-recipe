@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon, ArrowRightIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -135,7 +134,6 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
 
       <main className="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 flex flex-col items-center">
         <div className="bg-white shadow-2xl rounded-xl overflow-hidden w-full max-w-2xl">
-        import Image from 'next/image';
 
         {/* Gambar Resep */}
         <div className="relative h-64 sm:h-80 md:h-96 w-full">
