@@ -28,7 +28,7 @@ const IngredientSection: React.FC<Props> = ({ ingredients }) => {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto scrollbar-hide">
       <div className="inline-flex gap-6">
         {columns.map((column, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-4">
