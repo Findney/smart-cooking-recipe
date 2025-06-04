@@ -17,7 +17,7 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
   if (isNaN(recipeId)) {
     return (
       <div className="container mx-auto p-8 text-center text-red-500 font-semibold">
-        ID Resep tidak valid.
+        Invalid recipe ID.
       </div>
     );
   }
@@ -32,7 +32,7 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
   if (recipeError || !recipe) {
     return (
       <div className="container mx-auto p-8 text-center text-red-500 font-semibold">
-        Resep tidak ditemukan.
+        Recipe not found.
       </div>
     );
   }
@@ -82,8 +82,8 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
             <div className="flex items-center space-x-2">
               <ClockIcon className="w-7 h-7 text-green-600" />
               <div>
-                <p className="text-sm text-gray-500">Total Waktu</p>
-                <p className="font-medium text-gray-700">{totalCookTime} menit</p>
+                <p className="text-sm text-gray-500">Total Cooking Time</p>
+                <p className="font-medium text-gray-700">{totalCookTime} minutes</p>
               </div>
             </div>
           </div>
@@ -92,13 +92,13 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
           <div className="text-black mb-8 p-4 bg-blue-50 rounded-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-3 flex items-center">
               <ScaleIcon className="w-6 h-6 text-blue-600 mr-2" />
-              Estimasi Fakta Nutrisi
+              Estimated Nutrition Facts
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-              <p><span className="font-medium text-gray-600">Kalori:</span> {recipe.calory} kcal</p>
+              <p><span className="font-medium text-gray-600">Calories:</span> {recipe.calory} kcal</p>
               <p><span className="font-medium text-gray-600">Protein:</span> {recipe.protein} g</p>
-              <p><span className="font-medium text-gray-600">Karbohidrat:</span> {recipe.carbs} g</p>
-              <p><span className="font-medium text-gray-600">Lemak:</span> {recipe.fat} g</p>
+              <p><span className="font-medium text-gray-600">Carbs:</span> {recipe.carbs} g</p>
+              <p><span className="font-medium text-gray-600">Fat:</span> {recipe.fat} g</p>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
               className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-colors duration-150 text-center"
             >
               <ClipboardIcon className="w-5 h-5 mr-2 -ml-1" />
-              Periksa Bahan-Bahan
+              Check Ingredients
             </Link>
 
             <Link
@@ -117,13 +117,13 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
               className="flex-1 justify-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-150 text-center"
             >
               <PlayIcon className="w-5 h-5 mr-2 -ml-1" />
-              Mulai Memasak Sekarang
+              Start Cooking Now
             </Link>
           </div>
 
           {/* Bahan-Bahan */}
           <div className="mb-8">
-            <h3 className="text-2xl font-semibold text-gray-700 mb-4">Bahan-Bahan</h3>
+            <h3 className="text-2xl font-semibold text-gray-700 mb-4">Ingredients</h3>
             <ul className="list-disc list-inside space-y-2 pl-4 text-gray-600 bg-gray-50 p-4 rounded-md">
               {ingredients?.map((item, index) => (
                 <li key={index}>
@@ -136,7 +136,7 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
 
           {/* Langkah Memasak */}
           <div>
-            <h3 className="text-2xl font-semibold text-gray-700 mb-4">Langkah Memasak</h3>
+            <h3 className="text-2xl font-semibold text-gray-700 mb-4">Cooking Steps</h3>
             <ol className="space-y-4">
               {instructions.map((instruction: any, idx: number) => (
                 <li key={idx} className="flex items-start">
@@ -144,7 +144,7 @@ export default async function SingleRecipePage(props: { params: Promise<{ id: st
                     {instruction.step || idx + 1}
                   </span>
                   <p className="text-gray-700 leading-relaxed pt-1">
-                    {instruction.instruction || instruction.description || 'Langkah belum tersedia.'}
+                    {instruction.instruction || instruction.description || 'Cooking step not available.'}
                   </p>
                 </li>
               ))}

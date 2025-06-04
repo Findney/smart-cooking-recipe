@@ -1,23 +1,53 @@
 .custom-calendar {
   width: 350px;
   max-width: 100%;
-  background: #ededed;
+  background: white;
   border: none;
   font-family: inherit;
 }
 
-/* Tanggal di bulan ini (hitam) */
-.custom-calendar .react-calendar_month-viewdays_day {
+/* Month and day names (black) */
+.react-calendar__month-view__weekdays__weekday {
+  color: black !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+.react-calendar__navigation button {
+  color: black;
+  font-weight: 600;
+  min-width: 44px;
+  background: none;
+  font-size: 16px;
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #ffeeee;
+}
+
+/* Current month dates (black) */
+.custom-calendar .react-calendar__month-view__days__day {
   color: black;
   position: relative;
+  font-weight: 500;
 }
 
-/* Tanggal sebelum dan sesudah bulan ini (abu-abu pudar) */
-.custom-calendar .react-calendar_month-viewdays_day--neighboringMonth {
-  color: #cccccc;
+/* Previous and next month dates (gray) */
+.custom-calendar .react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+  font-weight: normal;
 }
 
-/* Tanggal yang ditandai/dipilih (merah) */
+/* Selected date (red) */
 .custom-calendar .react-calendar__tile--active,
 .custom-calendar .react-calendar__tile--active:enabled:hover,
 .custom-calendar .react-calendar__tile--active:enabled:focus {
@@ -25,24 +55,29 @@
   color: white;
 }
 
-/* Hover effect untuk tanggal */
+/* Hover effect for dates */
 .custom-calendar .react-calendar__tile:enabled:hover,
 .custom-calendar .react-calendar__tile:enabled:focus {
   background-color: #ffeeee;
   color: #ff4444;
 }
 
-/* Style untuk container calendar */
+/* Calendar container style */
 .calendar-container {
   padding: 1rem;
   border-radius: 0.75rem;
 }
 
-/* Style untuk tanggal kadaluarsa */
+/* Style for expiring dates */
 .expiring-date {
   background-color: #fff0f0 !important;
   color: #ff4444 !important;
-  font-weight: bold;
+}
+
+/* Style for items expiring within a week */
+.week-expiring {
+  background-color: #ffdddd !important;
+  /* border: 2px solid #ff4444 !important; */
 }
 
 .expiring-items {
@@ -59,4 +94,30 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+
+/* Tooltip styles */
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: pre-line;
+  z-index: 1000;
+  min-width: 200px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: left;
+}
+
+.react-calendar__tile {
+  position: relative;
+}
+
+.react-calendar__tile:hover .tooltip {
+  display: block;
 }

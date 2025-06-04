@@ -40,7 +40,7 @@ export default function CheckIngredientsPage() {
         .single();
 
       if (recipeError || !recipeData) {
-        console.error('Gagal mengambil resep:', recipeError);
+        console.error('Failed to fetch recipe:', recipeError);
         setLoading(false);
         return;
       }
@@ -58,7 +58,7 @@ export default function CheckIngredientsPage() {
         .eq('recipe_id', recipeId);
 
       if (ingredientsError) {
-        console.error('Gagal mengambil bahan resep:', ingredientsError);
+        console.error('Failed to fetch recipe ingredients:', ingredientsError);
         setLoading(false);
         return;
       }
@@ -97,11 +97,11 @@ export default function CheckIngredientsPage() {
   const allIngredientsChecked = recipe?.ingredients?.every(ing => checkedIngredients[ing.id]);
 
   if (loading) {
-    return <div className="container mx-auto p-8 text-center">Memuat resep...</div>;
+    return <div className="container mx-auto p-8 text-center">Loading recipe...</div>;
   }
 
   if (!recipe) {
-    return <div className="container mx-auto p-8 text-center">Resep tidak ditemukan.</div>;
+    return <div className="container mx-auto p-8 text-center">Recipe not found.</div>;
   }
 
   return (
@@ -109,26 +109,26 @@ export default function CheckIngredientsPage() {
       <div className="mb-6">
         <Link href={`/recipes/${recipe.id}`} className="inline-flex items-center text-green-600 hover:text-green-800 transition-colors duration-150 group">
           <ArrowLeftIcon className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-150" />
-          Kembali ke Detail Resep
+          Back to Recipe Details
         </Link>
       </div>
 
       <div className="bg-white shadow-xl rounded-lg p-6 md:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-gray-200">
           <div>
-            <p className="text-sm text-gray-500">Checklist Bahan untuk:</p>
+            <p className="text-sm text-gray-500">Checklist Ingredients for:</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{recipe.title}</h1>
           </div>
           {allIngredientsChecked && (
             <div className="mt-3 sm:mt-0 flex items-center text-green-600 bg-green-100 px-3 py-2 rounded-md">
               <CheckCircleIcon className="w-6 h-6 mr-2" />
-              <span className="font-semibold">Semua bahan siap!</span>
+              <span className="font-semibold">All ingredients ready!</span>
             </div>
           )}
         </div>
 
         <p className="text-gray-600 mb-6">
-          Gunakan daftar ini untuk memastikan semua bahan yang Anda butuhkan sudah siap sebelum mulai memasak.
+          Use this list to ensure all ingredients you need are ready before cooking.
         </p>
 
         {recipe.ingredients.length > 0 ? (
@@ -162,7 +162,7 @@ export default function CheckIngredientsPage() {
         ) : (
           <div className="text-center py-10">
             <DocumentTextIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">Tidak ada daftar bahan untuk resep ini.</p>
+            <p className="text-gray-500">No ingredients list for this recipe.</p>
           </div>
         )}
 
@@ -179,7 +179,7 @@ export default function CheckIngredientsPage() {
               }}
               className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
-              {allIngredientsChecked ? 'Batal Centang Semua' : 'Centang Semua'}
+              {allIngredientsChecked ? 'Uncheck All' : 'Check All'}
             </button>
             <Link
               href={`/recipes/${recipe.id}/start-cooking`}
@@ -191,7 +191,7 @@ export default function CheckIngredientsPage() {
               }}
             >
               <PlayIcon className="w-5 h-5 mr-2 -ml-1" />
-              Siap Memasak!
+              Ready to Cook!
             </Link>
           </div>
         )}

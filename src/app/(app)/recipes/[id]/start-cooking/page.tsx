@@ -73,7 +73,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
   if (loading) {
     return (
       <div className="container mx-auto p-8 text-center">
-        <p>Memuat data resep...</p>
+        <p>Loading recipe data...</p>
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
       <div className="container mx-auto p-8 text-center text-red-600">
         <p>{error}</p>
         <Link href={`/recipes/${id}`} className="mt-4 inline-block text-green-600 hover:underline">
-          Kembali ke Detail Resep
+          Back to Recipe Details
         </Link>
       </div>
     );
@@ -92,9 +92,9 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
   if (!recipe || !recipe.step || recipe.step.length === 0) {
     return (
       <div className="container mx-auto p-8 text-center">
-        <p>Informasi langkah memasak tidak ditemukan untuk resep ini.</p>
+        <p>Cooking step information not found for this recipe.</p>
         <Link href={`/recipes/${id}`} className="mt-4 inline-block text-green-600 hover:underline">
-          Kembali ke Detail Resep
+          Back to Recipe Details
         </Link>
       </div>
     );
@@ -128,7 +128,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
             {recipe.title}
           </h1>
           <Link href={`/recipes/${id}`} className="text-sm text-gray-600 hover:text-green-700 flex items-center">
-            <ArrowLeftIcon className="w-4 h-4 mr-1" /> Batal & Kembali
+            <ArrowLeftIcon className="w-4 h-4 mr-1" /> Back
           </Link>
         </div>
       </header>
@@ -163,7 +163,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
                 className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               >
                 <ArrowLeftIcon className="w-5 h-5 mr-2" />
-                Sebelumnya
+                Previous
               </button>
               <button
                 onClick={goToNextStep}
@@ -172,7 +172,7 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
                     ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
                     : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'}`}
               >
-                {isLastStep ? 'Selesai Memasak' : 'Berikutnya'}
+                {isLastStep ? 'Finished Cooking' : 'Next'}
                 {isLastStep ? <CheckCircleIcon className="w-5 h-5 ml-2" /> : <ArrowRightIcon className="w-5 h-5 ml-2" />}
               </button>
             </div>
@@ -183,8 +183,8 @@ export default function StartCookingPage({ params }: { params: Promise<{ id: str
           <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700 max-w-2xl w-full flex items-start">
             <LightBulbIcon className="w-8 h-8 mr-3 flex-shrink-0 text-yellow-400" />
             <div>
-              <h4 className="font-semibold">Selamat! Anda telah menyelesaikan resep ini.</h4>
-              <p className="text-sm">Jangan lupa untuk membersihkan peralatan masak Anda dan nikmati hidangan lezat yang telah Anda buat!</p>
+              <h4 className="font-semibold">Congratulations! You have finished the recipe.</h4>
+              <p className="text-sm">Don't forget to clean your cooking utensils and enjoy the delicious meal you've made!</p>
             </div>
           </div>
         )}
