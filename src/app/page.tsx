@@ -107,7 +107,7 @@ const CallToActionSection: React.FC = () => (
         Join thousands of smart cooks who are planning better, eating healthier, and wasting less.
       </p>
       <Link
-        href="/signup"
+        href="/register"
         aria-label="Sign up now"
         className="bg-white hover:bg-gray-100 text-green-600 font-bold px-10 py-4 rounded-lg text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out"
       >

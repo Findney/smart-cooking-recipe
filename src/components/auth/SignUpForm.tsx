@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import AuthButton from "./AuthButton";
 import { useRouter } from "next/navigation";
-import SignUp from "@/app/(auth)/register/page";
 import { signUp } from "@/actions/auth";
 
 const SignUpForm = () => {
@@ -17,7 +16,7 @@ const SignUpForm = () => {
     const formData = new FormData(event.currentTarget);
     const result = await signUp(formData);
 
-    if(result.status === "success") {
+    if (result.status === "success") {
       router.push("/login");
     } else {
       setError(result.status)
@@ -26,10 +25,10 @@ const SignUpForm = () => {
     setLoading(false);
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+    <div className="text-black">
+      <form onSubmit={handleSubmit} className="text-black w-full flex flex-col gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-200">
+          <label className="text-black block text-sm font-medium">
             Username
           </label>
           <input
@@ -41,7 +40,7 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-200">
+          <label className="block text-sm font-medium text-black">
             Email
           </label>
           <input
@@ -53,7 +52,7 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-200">
+          <label className="block text-sm font-medium text-black">
             Password
           </label>
           <input
